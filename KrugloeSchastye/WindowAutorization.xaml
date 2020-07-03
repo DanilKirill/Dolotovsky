@@ -1,0 +1,18 @@
+﻿<Window x:Class="KrugloeSchastye.WindowAutorization"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KrugloeSchastye"
+        mc:Ignorable="d"
+        Title="Вход в систему" Height="450" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <StackPanel>
+        <TextBlock Text="Вход" Margin="0,30,0,0" TextAlignment="Center" FontSize="48"/>
+        <TextBlock Text="Логин" Margin="60,60,60,0"></TextBlock>
+        <TextBox Name="txtbxLogin" Margin="60,0,60,0" Height="20"></TextBox>
+        <TextBlock Text="Пароль" Margin="60,60,60,0"/>
+        <PasswordBox Name="pswbxPassword" Margin="60,0,60,0" Height="20"/>
+        <Button IsDefault="True" Content="Войти" Name="btnEnter" Margin="90,60,90,0" Height="25" Click="BtnEnter_Click"/>
+    </StackPanel>
+</Window>

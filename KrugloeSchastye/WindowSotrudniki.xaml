@@ -5,8 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KrugloeSchastye"
         mc:Ignorable="d"
-        Title="WindowSotrudniki" Height="450" Width="800">
+        Title="WindowSotrudniki" Height="450" Width="800" Name="sotrudniki" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Sotrudniki_Loaded" Closed="Sotrudniki_Closed">
     <Grid>
-        
+        <StackPanel Margin="10,10,645,10">
+            <Button Name="btnCreate" Content="Создать"  Height="40"/>
+        </StackPanel>
+        <StackPanel Margin="154,10,501,10">
+            <Button Name="btnEdit" Content="Изменить"  Height="40" />
+        </StackPanel>
+        <StackPanel Margin="298,10,357,10">
+            <Button Name="btnRefresh" Content="Обновить" Height="40"/>
+        </StackPanel>
+        <StackPanel Margin="442,10,213,10">
+            <Button Name="btnDelete" Content="Удалить" Height="40"/>
+        </StackPanel>
+        <DataGrid Name="DataGird" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,60,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Код" Binding="{Binding idEmployee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Telephone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Дата рождения" Binding="{Binding BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Ресторан" Binding="{Binding Restoran, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

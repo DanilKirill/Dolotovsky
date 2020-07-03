@@ -20,9 +20,29 @@ namespace KrugloeSchastye
     /// </summary>
     public partial class WindowMainMenu : Window
     {
+        string Login { get; set; }
+        string Dates { get; set; }
         public WindowMainMenu(string Login, string Dates)
         {
             InitializeComponent();
+            this.Login = Login;
+            this.Dates = Dates;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            mainmenu.Title = $"Главное меню / {Login} / {Dates} ";
+        }
+
+        private void BtnSotrudniki_Click(object sender, RoutedEventArgs e)
+        {
+            new WindowSotrudniki(Login, Dates).Show();
+            Close();
         }
     }
 }

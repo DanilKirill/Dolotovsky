@@ -67,6 +67,9 @@
     <Compile Include="WindowAutorization.xaml.cs">
       <DependentUpon>WindowAutorization.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowRestorans.xaml.cs">
+      <DependentUpon>WindowRestorans.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowSotrudniki.xaml.cs">
       <DependentUpon>WindowSotrudniki.xaml</DependentUpon>
     </Compile>
@@ -98,6 +101,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="WindowAutorization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowRestorans.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

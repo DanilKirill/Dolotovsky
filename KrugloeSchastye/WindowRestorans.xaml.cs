@@ -11,36 +11,36 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace KrugloeSchastye
 {
     /// <summary>
-    /// Логика взаимодействия для WindowSotrudniki.xaml
+    /// Логика взаимодействия для WindowRestorans.xaml
     /// </summary>
-    public partial class WindowSotrudniki : Window
+    public partial class WindowRestorans : Window
     {
-        string Login;
-        string Dates;
+        string Login { get; set; }
+        string Dates { get; set; }
 
         KrugloeSchastyeEntities db = new KrugloeSchastyeEntities();
 
-        public WindowSotrudniki(string Login, string Dates)
+        public WindowRestorans(string Login, string Dates)
         {
             InitializeComponent();
             this.Login = Login;
             this.Dates = Dates;
         }
 
-        private void Sotrudniki_Loaded(object sender, RoutedEventArgs e)
+        private void Restorans_Loaded(object sender, RoutedEventArgs e)
         {
-            sotrudniki.Title = $"Сотрудники / {Login} / {Dates}";
-            DataGird.ItemsSource = db.Employee.ToList();
+            restorans.Title = $"Рестораны / {Login} / {Dates}";
+            DataGird.ItemsSource = db.Restaurants.ToList();
         }
 
-        private void Sotrudniki_Closed(object sender, EventArgs e)
+        private void Restorans_Closed(object sender, EventArgs e)
         {
             new WindowMainMenu(Login, Dates).Show();
+            Close();
         }
     }
 }

@@ -11,8 +11,8 @@
         <TextBlock Text="Вход" Margin="0,30,0,0" TextAlignment="Center" FontSize="48"/>
         <TextBlock Text="Логин" Margin="60,60,60,0"></TextBlock>
         <TextBox Name="txtbxLogin" Margin="60,0,60,0" Height="20"></TextBox>
-        <TextBlock Text="Пароль" Margin="60,60,60,0"/>
+        <TextBlock Text="Пароль" Margin="60,30,60,0"/>
         <PasswordBox Name="pswbxPassword" Margin="60,0,60,0" Height="20"/>
-        <Button IsDefault="True" Content="Войти" Name="btnEnter" Margin="90,60,90,0" Height="25" Click="BtnEnter_Click"/>
+        <Button IsDefault="True" Content="Войти" Name="btnEnter" Margin="90,70,90,0" Height="30" Click="BtnEnter_Click"/>
     </StackPanel>
 </Window>

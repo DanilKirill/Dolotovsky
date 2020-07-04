@@ -44,5 +44,11 @@ namespace KrugloeSchastye
             new WindowSotrudniki(Login, Dates).Show();
             Close();
         }
+
+        private void BtnRestorans_Click(object sender, RoutedEventArgs e)
+        {
+            new WindowRestorans(Login, Dates).Show();
+            Close();
+        }
     }
 }

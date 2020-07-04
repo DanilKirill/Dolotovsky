@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:KrugloeSchastye"
         mc:Ignorable="d"
         Title="WindowMainMenu" Height="450" Width="800" Name="mainmenu" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Closed="Window_Closed">
+   
     <StackPanel>
         <Button Name="btnSotrudniki" Content="Сотрудники" Margin="10,10,560,0" Height="30" Click="BtnSotrudniki_Click"/>
-        <Button Name="btnRestorans" Content="Рестораны" Margin="10,10,560,0" Height="30"/>
+        <Button Name="btnRestorans" Content="Рестораны" Margin="10,10,560,0" Height="30" Click="BtnRestorans_Click"/>
     </StackPanel>
 </Window>

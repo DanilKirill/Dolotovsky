@@ -1,0 +1,33 @@
+﻿<Window x:Class="KrugloeSchastye.WindowRestorans"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KrugloeSchastye"
+        mc:Ignorable="d"
+        Title="WindowRestorans" Name="restorans" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Restorans_Loaded" Closed="Restorans_Closed">
+    
+    <Grid>
+        <StackPanel Margin="10,10,645,10">
+            <Button Name="btnCreate" Content="Создать"  Height="40"/>
+        </StackPanel>
+        <StackPanel Margin="154,10,501,10">
+            <Button Name="btnEdit" Content="Изменить"  Height="40" />
+        </StackPanel>
+        <StackPanel Margin="298,10,357,10">
+            <Button Name="btnRefresh" Content="Обновить" Height="40"/>
+        </StackPanel>
+        <StackPanel Margin="442,10,213,10">
+            <Button Name="btnDelete" Content="Удалить" Height="40"/>
+        </StackPanel>
+        <DataGrid Name="DataGird" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,60,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding NameRest, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Адрес" Binding="{Binding Adress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Telephone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Главный" Binding="{Binding Leader, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Дата открытия" Binding="{Binding OpenDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

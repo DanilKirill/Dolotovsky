@@ -1,0 +1,34 @@
+﻿<Window x:Class="KrugloeSchastye.WindowMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KrugloeSchastye"
+        xmlns:core="clr-namespace:KrugloeSchastye.Model"
+        mc:Ignorable="d"
+        Title="WindowMenu" Height="450" Width="800" Name="menu" Loaded="Window_Loaded" Closed="Window_Closed" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <core:ListRazdelMenu x:Key="listRazdel"/>
+    </Window.Resources>
+
+    <Grid>
+        <Button Name="btnCreate" Content="Создать" Margin="10,10,687,0" Height="33" VerticalAlignment="Top"/>
+        <Button Name="btnDel" Content="Удалить" Margin="309,10,389,0" Height="33" VerticalAlignment="Top"/>
+        <Button Name="btnEdit" Content="Изменить" Margin="110,10,587,0" Height="33" VerticalAlignment="Top"/>
+        <Button Name="btnSave" Content="Сохранить" Margin="210,10,488,0" Height="33" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbxRazdelMenu" IsEnabled="False" ItemsSource="{Binding Source={StaticResource listRazdel}}" DisplayMemberPath="NameRazdela" SelectedValuePath="idRazdel" HorizontalAlignment="Left" Height="33" Margin="507,10,0,0" VerticalAlignment="Top" Width="176"/>
+        <Button Name="btnSort" IsEnabled="False" Content="Поиск" Margin="688,10,10,0" Height="33" VerticalAlignment="Top" Click="BtnSort_Click"/>
+        <CheckBox Name="cbEnableSearch" Margin="486,19,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="16" Checked="CbEnableSearch_Checked" Unchecked="CbEnableSearch_Unchecked" />
+        <DataGrid Name="DataGridM" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,48,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Код" Binding="{Binding idBluda, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding NameBludo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Вес" Binding="{Binding Wheight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Состав" Binding="{Binding Struct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridComboBoxColumn Header="Раздел меню" ItemsSource="{Binding Source={StaticResource listRazdel}}" DisplayMemberPath="NameRazdela" SelectedValueBinding="{Binding RazdelMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="idRazdel"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

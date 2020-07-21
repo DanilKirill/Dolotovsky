@@ -15,7 +15,7 @@
           <Property Name="Patronymic" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
           <Property Name="BirthDate" Type="smalldatetime" Nullable="false" />
-          <Property Name="Restoran" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Restoran" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
@@ -27,10 +27,29 @@
           <Property Name="Role" Type="int" Nullable="false" />
           <Property Name="CountWrong" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="idBluda" />
+          </Key>
+          <Property Name="idBluda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameBludo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Wheight" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Struct" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RazdelMenu" Type="int" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Razdeli">
+          <Key>
+            <PropertyRef Name="idRazdel" />
+          </Key>
+          <Property Name="idRazdel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameRazdela" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Restaurants">
           <Key>
-            <PropertyRef Name="NameRest" />
+            <PropertyRef Name="idRestoran" />
           </Key>
+          <Property Name="idRestoran" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameRest" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="Adress" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
@@ -44,12 +63,50 @@
           <Property Name="idRole" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="Stoli">
+          <Key>
+            <PropertyRef Name="idStola" />
+          </Key>
+          <Property Name="idStola" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameStola" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="ZakazBluda">
+          <Key>
+            <PropertyRef Name="idZakazBludo" />
+          </Key>
+          <Property Name="idZakazBludo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idZakaza" Type="int" Nullable="false" />
+          <Property Name="NameBludo" Type="int" Nullable="false" />
+          <Property Name="Kolvo" Type="int" Nullable="false" />
+          <Property Name="Cena" Type="int" Nullable="false" />
+          <Property Name="Summa" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zakazi">
+          <Key>
+            <PropertyRef Name="idZakaza" />
+          </Key>
+          <Property Name="idZakaza" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Stol" Type="int" Nullable="false" />
+          <Property Name="SummaZakaza" Type="int" Nullable="false" />
+          <Property Name="DateOpenZakaz" Type="datetime" />
+          <Property Name="DateCloseZakaz" Type="datetime" />
+        </EntityType>
         <Association Name="FK_Employee_Restaurants">
           <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Restaurants">
-              <PropertyRef Name="NameRest" />
+              <PropertyRef Name="idRestoran" />
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="Restoran" />
@@ -68,11 +125,65 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Menu_Razdeli">
+          <End Role="Razdeli" Type="Self.Razdeli" Multiplicity="1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Razdeli">
+              <PropertyRef Name="idRazdel" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="RazdelMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZakazBluda_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="ZakazBluda" Type="Self.ZakazBluda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="idBluda" />
+            </Principal>
+            <Dependent Role="ZakazBluda">
+              <PropertyRef Name="NameBludo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZakazBluda_Zakazi">
+          <End Role="Zakazi" Type="Self.Zakazi" Multiplicity="1" />
+          <End Role="ZakazBluda" Type="Self.ZakazBluda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakazi">
+              <PropertyRef Name="idZakaza" />
+            </Principal>
+            <Dependent Role="ZakazBluda">
+              <PropertyRef Name="idZakaza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakazi_Stoli">
+          <End Role="Stoli" Type="Self.Stoli" Multiplicity="1" />
+          <End Role="Zakazi" Type="Self.Zakazi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stoli">
+              <PropertyRef Name="idStola" />
+            </Principal>
+            <Dependent Role="Zakazi">
+              <PropertyRef Name="Stol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище KrugloeSchastyeModelContainer">
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Razdeli" EntityType="Self.Razdeli" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Restaurants" EntityType="Self.Restaurants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stoli" EntityType="Self.Stoli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZakazBluda" EntityType="Self.ZakazBluda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zakazi" EntityType="Self.Zakazi" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Employee_Restaurants" Association="Self.FK_Employee_Restaurants">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="Employee" EntitySet="Employee" />
@@ -80,6 +191,22 @@
           <AssociationSet Name="FK_Login_Roles" Association="Self.FK_Login_Roles">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Login" EntitySet="Login" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_Razdeli" Association="Self.FK_Menu_Razdeli">
+            <End Role="Razdeli" EntitySet="Razdeli" />
+            <End Role="Menu" EntitySet="Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZakazBluda_Menu" Association="Self.FK_ZakazBluda_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="ZakazBluda" EntitySet="ZakazBluda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZakazBluda_Zakazi" Association="Self.FK_ZakazBluda_Zakazi">
+            <End Role="Zakazi" EntitySet="Zakazi" />
+            <End Role="ZakazBluda" EntitySet="ZakazBluda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakazi_Stoli" Association="Self.FK_Zakazi_Stoli">
+            <End Role="Stoli" EntitySet="Stoli" />
+            <End Role="Zakazi" EntitySet="Zakazi" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -97,7 +224,7 @@
           <Property Name="Patronymic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Telephone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Restoran" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Restoran" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Restaurants" Relationship="Self.FK_Employee_Restaurants" FromRole="Employee" ToRole="Restaurants" />
         </EntityType>
         <EntityType Name="Login">
@@ -111,10 +238,32 @@
           <Property Name="CountWrong" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_Login_Roles" FromRole="Login" ToRole="Roles" />
         </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="idBluda" />
+          </Key>
+          <Property Name="idBluda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameBludo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Wheight" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Struct" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RazdelMenu" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Razdeli" Relationship="Self.FK_Menu_Razdeli" FromRole="Menu" ToRole="Razdeli" />
+          <NavigationProperty Name="ZakazBluda" Relationship="Self.FK_ZakazBluda_Menu" FromRole="Menu" ToRole="ZakazBluda" />
+        </EntityType>
+        <EntityType Name="Razdeli">
+          <Key>
+            <PropertyRef Name="idRazdel" />
+          </Key>
+          <Property Name="idRazdel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameRazdela" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Menu" Relationship="Self.FK_Menu_Razdeli" FromRole="Razdeli" ToRole="Menu" />
+        </EntityType>
         <EntityType Name="Restaurants">
           <Key>
-            <PropertyRef Name="NameRest" />
+            <PropertyRef Name="idRestoran" />
           </Key>
+          <Property Name="idRestoran" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NameRest" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Telephone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
@@ -130,12 +279,55 @@
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Login" Relationship="Self.FK_Login_Roles" FromRole="Roles" ToRole="Login" />
         </EntityType>
+        <EntityType Name="Stoli">
+          <Key>
+            <PropertyRef Name="idStola" />
+          </Key>
+          <Property Name="idStola" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameStola" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Zakazi" Relationship="Self.FK_Zakazi_Stoli" FromRole="Stoli" ToRole="Zakazi" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ZakazBluda">
+          <Key>
+            <PropertyRef Name="idZakazBludo" />
+          </Key>
+          <Property Name="idZakazBludo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idZakaza" Type="Int32" Nullable="false" />
+          <Property Name="NameBludo" Type="Int32" Nullable="false" />
+          <Property Name="Kolvo" Type="Int32" Nullable="false" />
+          <Property Name="Cena" Type="Int32" Nullable="false" />
+          <Property Name="Summa" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Menu" Relationship="Self.FK_ZakazBluda_Menu" FromRole="ZakazBluda" ToRole="Menu" />
+          <NavigationProperty Name="Zakazi" Relationship="Self.FK_ZakazBluda_Zakazi" FromRole="ZakazBluda" ToRole="Zakazi" />
+        </EntityType>
+        <EntityType Name="Zakazi">
+          <Key>
+            <PropertyRef Name="idZakaza" />
+          </Key>
+          <Property Name="idZakaza" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Stol" Type="Int32" Nullable="false" />
+          <Property Name="SummaZakaza" Type="Int32" Nullable="false" />
+          <Property Name="DateOpenZakaz" Type="DateTime" Precision="3" />
+          <Property Name="DateCloseZakaz" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Stoli" Relationship="Self.FK_Zakazi_Stoli" FromRole="Zakazi" ToRole="Stoli" />
+          <NavigationProperty Name="ZakazBluda" Relationship="Self.FK_ZakazBluda_Zakazi" FromRole="Zakazi" ToRole="ZakazBluda" />
+        </EntityType>
         <Association Name="FK_Employee_Restaurants">
           <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Restaurants">
-              <PropertyRef Name="NameRest" />
+              <PropertyRef Name="idRestoran" />
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="Restoran" />
@@ -154,11 +346,65 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Menu_Razdeli">
+          <End Role="Razdeli" Type="Self.Razdeli" Multiplicity="1" />
+          <End Role="Menu" Type="Self.Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Razdeli">
+              <PropertyRef Name="idRazdel" />
+            </Principal>
+            <Dependent Role="Menu">
+              <PropertyRef Name="RazdelMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZakazBluda_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="ZakazBluda" Type="Self.ZakazBluda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="idBluda" />
+            </Principal>
+            <Dependent Role="ZakazBluda">
+              <PropertyRef Name="NameBludo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakazi_Stoli">
+          <End Role="Stoli" Type="Self.Stoli" Multiplicity="1" />
+          <End Role="Zakazi" Type="Self.Zakazi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stoli">
+              <PropertyRef Name="idStola" />
+            </Principal>
+            <Dependent Role="Zakazi">
+              <PropertyRef Name="Stol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZakazBluda_Zakazi">
+          <End Role="Zakazi" Type="Self.Zakazi" Multiplicity="1" />
+          <End Role="ZakazBluda" Type="Self.ZakazBluda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakazi">
+              <PropertyRef Name="idZakaza" />
+            </Principal>
+            <Dependent Role="ZakazBluda">
+              <PropertyRef Name="idZakaza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="KrugloeSchastyeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Employee" EntityType="Self.Employee" />
           <EntitySet Name="Login" EntityType="Self.Login" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" />
+          <EntitySet Name="Razdeli" EntityType="Self.Razdeli" />
           <EntitySet Name="Restaurants" EntityType="Self.Restaurants" />
           <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Stoli" EntityType="Self.Stoli" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="ZakazBluda" EntityType="Self.ZakazBluda" />
+          <EntitySet Name="Zakazi" EntityType="Self.Zakazi" />
           <AssociationSet Name="FK_Employee_Restaurants" Association="Self.FK_Employee_Restaurants">
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="Employee" EntitySet="Employee" />
@@ -166,6 +412,22 @@
           <AssociationSet Name="FK_Login_Roles" Association="Self.FK_Login_Roles">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Login" EntitySet="Login" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menu_Razdeli" Association="Self.FK_Menu_Razdeli">
+            <End Role="Razdeli" EntitySet="Razdeli" />
+            <End Role="Menu" EntitySet="Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZakazBluda_Menu" Association="Self.FK_ZakazBluda_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="ZakazBluda" EntitySet="ZakazBluda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakazi_Stoli" Association="Self.FK_Zakazi_Stoli">
+            <End Role="Stoli" EntitySet="Stoli" />
+            <End Role="Zakazi" EntitySet="Zakazi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZakazBluda_Zakazi" Association="Self.FK_ZakazBluda_Zakazi">
+            <End Role="Zakazi" EntitySet="Zakazi" />
+            <End Role="ZakazBluda" EntitySet="ZakazBluda" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -198,9 +460,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Menu">
+            <EntityTypeMapping TypeName="KrugloeSchastyeModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="idBluda" ColumnName="idBluda" />
+                <ScalarProperty Name="NameBludo" ColumnName="NameBludo" />
+                <ScalarProperty Name="Wheight" ColumnName="Wheight" />
+                <ScalarProperty Name="Struct" ColumnName="Struct" />
+                <ScalarProperty Name="RazdelMenu" ColumnName="RazdelMenu" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Razdeli">
+            <EntityTypeMapping TypeName="KrugloeSchastyeModel.Razdeli">
+              <MappingFragment StoreEntitySet="Razdeli">
+                <ScalarProperty Name="idRazdel" ColumnName="idRazdel" />
+                <ScalarProperty Name="NameRazdela" ColumnName="NameRazdela" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Restaurants">
             <EntityTypeMapping TypeName="KrugloeSchastyeModel.Restaurants">
               <MappingFragment StoreEntitySet="Restaurants">
+                <ScalarProperty Name="idRestoran" ColumnName="idRestoran" />
                 <ScalarProperty Name="NameRest" ColumnName="NameRest" />
                 <ScalarProperty Name="Adress" ColumnName="Adress" />
                 <ScalarProperty Name="Telephone" ColumnName="Telephone" />
@@ -214,6 +497,48 @@
               <MappingFragment StoreEntitySet="Roles">
                 <ScalarProperty Name="idRole" ColumnName="idRole" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stoli">
+            <EntityTypeMapping TypeName="KrugloeSchastyeModel.Stoli">
+              <MappingFragment StoreEntitySet="Stoli">
+                <ScalarProperty Name="idStola" ColumnName="idStola" />
+                <ScalarProperty Name="NameStola" ColumnName="NameStola" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="KrugloeSchastyeModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZakazBluda">
+            <EntityTypeMapping TypeName="KrugloeSchastyeModel.ZakazBluda">
+              <MappingFragment StoreEntitySet="ZakazBluda">
+                <ScalarProperty Name="idZakazBludo" ColumnName="idZakazBludo" />
+                <ScalarProperty Name="idZakaza" ColumnName="idZakaza" />
+                <ScalarProperty Name="NameBludo" ColumnName="NameBludo" />
+                <ScalarProperty Name="Kolvo" ColumnName="Kolvo" />
+                <ScalarProperty Name="Cena" ColumnName="Cena" />
+                <ScalarProperty Name="Summa" ColumnName="Summa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zakazi">
+            <EntityTypeMapping TypeName="KrugloeSchastyeModel.Zakazi">
+              <MappingFragment StoreEntitySet="Zakazi">
+                <ScalarProperty Name="idZakaza" ColumnName="idZakaza" />
+                <ScalarProperty Name="Stol" ColumnName="Stol" />
+                <ScalarProperty Name="SummaZakaza" ColumnName="SummaZakaza" />
+                <ScalarProperty Name="DateOpenZakaz" ColumnName="DateOpenZakaz" />
+                <ScalarProperty Name="DateCloseZakaz" ColumnName="DateCloseZakaz" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

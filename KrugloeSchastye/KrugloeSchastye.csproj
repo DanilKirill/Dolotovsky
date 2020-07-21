@@ -64,22 +64,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="WindowAutorization.xaml.cs">
-      <DependentUpon>WindowAutorization.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WindowRestorans.xaml.cs">
-      <DependentUpon>WindowRestorans.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WindowSotrudniki.xaml.cs">
-      <DependentUpon>WindowSotrudniki.xaml</DependentUpon>
-    </Compile>
-    <Page Include="WindowMainMenu.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="Employee.cs">
+      <DependentUpon>KrugloeSchastye.tt</DependentUpon>
     </Compile>
     <Compile Include="KrugloeSchastye.Context.cs">
       <AutoGen>True</AutoGen>
@@ -96,6 +82,70 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KrugloeSchastye.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Login.cs">
+      <DependentUpon>KrugloeSchastye.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.cs">
+      <DependentUpon>KrugloeSchastye.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ListBluda.cs" />
+    <Compile Include="Model\ListRazdelMenu.cs" />
+    <Compile Include="Model\ListRestorans.cs" />
+    <Compile Include="Model\ListStol.cs" />
+    <Compile Include="Razdeli.cs">
+      <DependentUpon>KrugloeSchastye.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurants.cs">
+      <DependentUpon>KrugloeSchastye.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Roles.cs">
+      <DependentUpon>KrugloeSchastye.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SotrudnikCreate.xaml.cs">
+      <DependentUpon>SotrudnikCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Stoli.cs">
+      <DependentUpon>KrugloeSchastye.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>KrugloeSchastye.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WindowAutorization.xaml.cs">
+      <DependentUpon>WindowAutorization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowMenu.xaml.cs">
+      <DependentUpon>WindowMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowRestorans.xaml.cs">
+      <DependentUpon>WindowRestorans.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowSotrudniki.xaml.cs">
+      <DependentUpon>WindowSotrudniki.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowZakaz.xaml.cs">
+      <DependentUpon>WindowZakaz.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowZakazCreate.xaml.cs">
+      <DependentUpon>WindowZakazCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ZakazBluda.cs">
+      <DependentUpon>KrugloeSchastye.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Zakazi.cs">
+      <DependentUpon>KrugloeSchastye.tt</DependentUpon>
+    </Compile>
+    <Page Include="SotrudnikCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowMainMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="WindowMainMenu.xaml.cs">
       <DependentUpon>WindowMainMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -104,11 +154,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WindowMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowRestorans.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowSotrudniki.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowZakaz.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowZakazCreate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,19 +210,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="KrugloeSchastye.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>KrugloeSchastye.Context.cs</LastGenOutput>
       <DependentUpon>KrugloeSchastye.edmx</DependentUpon>
+      <LastGenOutput>KrugloeSchastye.Context.cs</LastGenOutput>
     </Content>
     <Content Include="KrugloeSchastye.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>KrugloeSchastye.edmx</DependentUpon>
       <LastGenOutput>KrugloeSchastye.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

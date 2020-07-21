@@ -1,0 +1,47 @@
+﻿<Window x:Class="KrugloeSchastye.WindowZakaz"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KrugloeSchastye"
+        xmlns:core="clr-namespace:KrugloeSchastye.Model"
+        mc:Ignorable="d"
+        Title="WindowZakaz" Height="450" Width="800" Name="zakaz" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded" Closed="Zakaz_Closed">
+    <Window.Resources>
+        <core:ListStol x:Key="listStoli"/>
+        <core:ListBluda x:Key="listBluda"/>
+    </Window.Resources>
+        
+    <Grid>
+        <StackPanel Margin="10,10,645,10">
+            <Button Name="btnCreate" Content="Создать"  Height="40" Click="BtnCreate_Click"/>
+        </StackPanel>
+        <StackPanel Margin="154,10,501,10">
+            <Button Name="btnEdit" Content="Изменить"  Height="40"/>
+        </StackPanel>
+        <StackPanel Margin="298,10,357,10">
+            <Button Name="btnRefresh" Content="Обновить" Height="40"/>
+        </StackPanel>
+        <StackPanel Margin="442,10,213,10">
+            <Button Name="btnDelete" Content="Удалить" Height="40"/>
+        </StackPanel>
+        <DataGrid Name="dgZakaz" AutoGenerateColumns="False" IsReadOnly="True" Margin="10,60,357,10" SelectionChanged="DgZakaz_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Код" Binding="{Binding idZakaza, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridComboBoxColumn Header="Стол" ItemsSource="{Binding Source={StaticResource listStoli}}" DisplayMemberPath="NameStola" SelectedValueBinding="{Binding Stol, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="idStola"/>
+                <DataGridTextColumn Header="Итог" Binding="{Binding SummaZakaza, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Открыт" Binding="{Binding DateOpenZakaz, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Закрыт" Binding="{Binding DateCloseZakaz, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Name="dgBluda" Margin="442,60,10,10" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridComboBoxColumn Header="Наименование блюда" ItemsSource="{Binding Source={StaticResource listBluda}}" DisplayMemberPath="NameBludo" SelectedValueBinding="{Binding NameBludo, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="idBluda"/>
+                <DataGridTextColumn Header="Кол-во" Binding="{Binding Kolvo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Cena, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Сумма" Binding="{Binding Summa, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

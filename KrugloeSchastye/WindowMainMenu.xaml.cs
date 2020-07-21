@@ -50,5 +50,23 @@ namespace KrugloeSchastye
             new WindowRestorans(Login, Dates).Show();
             Close();
         }
+
+        private void BtnZakaz_Click(object sender, RoutedEventArgs e)
+        {
+            new WindowZakaz(Login,Dates).Show();
+            Close();
+        }
+
+        private void BtnMenu_Click(object sender, RoutedEventArgs e)
+        {
+            new WindowMenu(Login, Dates).Show();
+            Close();
+        }
+
+        private void BtnZakazi_Click(object sender, RoutedEventArgs e)
+        {
+            new WindowZakaz(Login, Dates).Show();
+            Close();
+        }
     }
 }

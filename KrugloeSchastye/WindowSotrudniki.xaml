@@ -4,22 +4,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KrugloeSchastye"
+        xmlns:core="clr-namespace:KrugloeSchastye.Model"
         mc:Ignorable="d"
         Title="WindowSotrudniki" Height="450" Width="800" Name="sotrudniki" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Sotrudniki_Loaded" Closed="Sotrudniki_Closed">
+    
+    <Window.Resources>
+        <core:ListRestorans x:Key="listRest"/>
+    </Window.Resources>
+    
     <Grid>
         <StackPanel Margin="10,10,645,10">
-            <Button Name="btnCreate" Content="Создать"  Height="40"/>
+            <Button Name="btnCreate" Content="Создать"  Height="40" Click="BtnCreate_Click"/>
         </StackPanel>
         <StackPanel Margin="154,10,501,10">
-            <Button Name="btnEdit" Content="Изменить"  Height="40" />
+            <Button Name="btnEdit" Content="Изменить"  Height="40" Click="BtnEdit_Click" />
         </StackPanel>
         <StackPanel Margin="298,10,357,10">
-            <Button Name="btnRefresh" Content="Обновить" Height="40"/>
+            <Button Name="btnRefresh" Content="Обновить" Height="40" Click="BtnRefresh_Click"/>
         </StackPanel>
         <StackPanel Margin="442,10,213,10">
-            <Button Name="btnDelete" Content="Удалить" Height="40"/>
+            <Button Name="btnDelete" Content="Удалить" Height="40" Click="BtnDelete_Click"/>
         </StackPanel>
-        <DataGrid Name="DataGird" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,60,0,0">
+        <DataGrid Name="DataGirdS" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,60,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Код" Binding="{Binding idEmployee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -27,7 +33,7 @@
                 <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Телефон" Binding="{Binding Telephone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Дата рождения" Binding="{Binding BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Ресторан" Binding="{Binding Restoran, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridComboBoxColumn Header="Ресторан" ItemsSource="{Binding Source={StaticResource listRest}}" DisplayMemberPath="NameRest" SelectedValueBinding="{Binding Restoran, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="idRestoran"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -10,5 +10,8 @@
     <StackPanel>
         <Button Name="btnSotrudniki" Content="Сотрудники" Margin="10,10,560,0" Height="30" Click="BtnSotrudniki_Click"/>
         <Button Name="btnRestorans" Content="Рестораны" Margin="10,10,560,0" Height="30" Click="BtnRestorans_Click"/>
+        <Button Name="btnZakaz" Content="Заказы" Margin="10,10,560,0" Height="30" Click="BtnZakaz_Click"/>
+        <Button Name="btnMenu" Content="Меню" Margin="10,10,560,0" Height="30" Click="BtnMenu_Click"/>
+        <Button Name="btnZakazi" Content="Заказы" Margin="10,10,560,0" Height="30" Click="BtnZakazi_Click"/>
     </StackPanel>
 </Window>
